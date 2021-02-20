@@ -15,12 +15,22 @@ public class MainActivity extends AppCompatActivity {
 
         TextView flashcardQuestion = ((TextView) findViewById(R.id.flashcard_question));
         TextView flashcardAnswer = ((TextView) findViewById(R.id.flashcard_answer));
-        // User can tap a button to change the text color of the label
+
+        // User can tap on question to see answer
         flashcardQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 flashcardAnswer.setVisibility(View.VISIBLE);
                 flashcardQuestion.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        // User can tap on answer to toggle back to question
+        flashcardAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flashcardAnswer.setVisibility(View.INVISIBLE);
+                flashcardQuestion.setVisibility(View.VISIBLE);
             }
         });
     }
