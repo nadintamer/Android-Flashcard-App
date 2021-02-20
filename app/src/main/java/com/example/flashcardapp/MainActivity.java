@@ -70,6 +70,28 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView toggleButton = ((ImageView) findViewById(R.id.toggle_choices_visibility));
 
+        // User can tap on background view to reset back to default settings
+        findViewById(R.id.parent).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Reset background colors for answer choices
+                incorrectAnswer1.setBackgroundColor(getResources().getColor(R.color.orange, null));
+                incorrectAnswer2.setBackgroundColor(getResources().getColor(R.color.orange, null));
+                correctAnswer.setBackgroundColor(getResources().getColor(R.color.orange, null));
+
+                // Set answer choices to be visible
+                correctAnswer.setVisibility(View.VISIBLE);
+                incorrectAnswer1.setVisibility(View.VISIBLE);
+                incorrectAnswer2.setVisibility(View.VISIBLE);
+                toggleButton.setImageResource(R.drawable.eye_hidden);
+                answerChoicesVisible = true;
+
+                // Switch back to showing question
+                flashcardAnswer.setVisibility(View.INVISIBLE);
+                flashcardQuestion.setVisibility(View.VISIBLE);
+            }
+        });
+
         // User can tap on toggle button to show/hide answer choices
         toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
