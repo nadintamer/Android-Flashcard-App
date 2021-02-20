@@ -16,22 +16,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         TextView flashcardQuestion = ((TextView) findViewById(R.id.flashcard_question));
-        TextView flashcardAnswer = ((TextView) findViewById(R.id.flashcard_answer));
+        TextView flashcardHint = ((TextView) findViewById(R.id.flashcard_hint));
 
         // User can tap on question to see answer
         flashcardQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flashcardAnswer.setVisibility(View.VISIBLE);
+                flashcardHint.setVisibility(View.VISIBLE);
                 flashcardQuestion.setVisibility(View.INVISIBLE);
             }
         });
 
         // User can tap on answer to toggle back to question
-        flashcardAnswer.setOnClickListener(new View.OnClickListener() {
+        flashcardHint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flashcardAnswer.setVisibility(View.INVISIBLE);
+                flashcardHint.setVisibility(View.INVISIBLE);
                 flashcardQuestion.setVisibility(View.VISIBLE);
             }
         });
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 answerChoicesVisible = true;
 
                 // Switch back to showing question
-                flashcardAnswer.setVisibility(View.INVISIBLE);
+                flashcardHint.setVisibility(View.INVISIBLE);
                 flashcardQuestion.setVisibility(View.VISIBLE);
             }
         });
