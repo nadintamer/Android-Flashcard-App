@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="10dp"
-        android:hint="Enter the answer here!"
+        android:hint="Enter your question here!"
         android:theme="@style/EditTextTheme"/>
 
     <EditText
