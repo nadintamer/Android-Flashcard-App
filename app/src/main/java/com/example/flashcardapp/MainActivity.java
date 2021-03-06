@@ -139,6 +139,11 @@ public class MainActivity extends AppCompatActivity {
 
             TextView correctAnswer = ((TextView) findViewById(R.id.flashcard_answer2));
             correctAnswer.setText(answer);
+
+            Snackbar.make(flashcardQuestion,
+                    "Card created successfully!",
+                    Snackbar.LENGTH_SHORT)
+                    .show();
         }
     }
 }
