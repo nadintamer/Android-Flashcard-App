@@ -21,6 +21,9 @@ public class AddCardActivity  extends AppCompatActivity {
         ImageView saveButton = ((ImageView) findViewById(R.id.save));
         EditText questionField = ((EditText) findViewById(R.id.enterQuestion));
         EditText answerField = ((EditText) findViewById(R.id.enterAnswer));
+        EditText incorrectField1 = ((EditText) findViewById(R.id.enterIncorrectAnswer1));
+        EditText incorrectField2 = ((EditText) findViewById(R.id.enterIncorrectAnswer2));
+        EditText hintField = ((EditText) findViewById(R.id.enterHint));
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,16 +37,23 @@ public class AddCardActivity  extends AppCompatActivity {
             public void onClick(View v) {
                 String enteredQuestion = questionField.getText().toString();
                 String enteredAnswer = answerField.getText().toString();
+                String enteredIncorrectAnswer1 = incorrectField1.getText().toString();
+                String enteredIncorrectAnswer2 = incorrectField2.getText().toString();
+                String enteredHint = hintField.getText().toString();
                 
-                if (enteredQuestion.isEmpty() || enteredAnswer.isEmpty()) {
+                if (enteredQuestion.isEmpty() || enteredAnswer.isEmpty() ||
+                        enteredIncorrectAnswer1.isEmpty() || enteredIncorrectAnswer2.isEmpty()) {
                     Snackbar.make(saveButton,
-                            "Please enter both the question and answer!",
+                            "Please make sure you've filled out all required fields!",
                             Snackbar.LENGTH_SHORT)
                             .show();
                 } else {
                     Intent data = new Intent();
                     data.putExtra("question", enteredQuestion);
                     data.putExtra("answer", enteredAnswer);
+                    data.putExtra("incorrect1", enteredIncorrectAnswer1);
+                    data.putExtra("incorrect2", enteredIncorrectAnswer2);
+                    data.putExtra("hint", enteredHint);
                     setResult(RESULT_OK, data);
                     finish();
                 }

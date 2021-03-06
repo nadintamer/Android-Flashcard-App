@@ -133,12 +133,28 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 100 && resultCode == RESULT_OK) {
             String question = data.getExtras().getString("question");
             String answer = data.getExtras().getString("answer");
+            String incorrect1 = data.getExtras().getString("incorrect1");
+            String incorrect2 = data.getExtras().getString("incorrect2");
+            String hint = data.getExtras().getString("hint");
 
             TextView flashcardQuestion = ((TextView) findViewById(R.id.flashcard_question));
             flashcardQuestion.setText(question);
 
             TextView correctAnswer = ((TextView) findViewById(R.id.flashcard_answer2));
             correctAnswer.setText(answer);
+
+            TextView incorrectAnswer1 = ((TextView) findViewById(R.id.flashcard_answer1));
+            incorrectAnswer1.setText(incorrect1);
+
+            TextView incorrectAnswer2 = ((TextView) findViewById(R.id.flashcard_answer3));
+            incorrectAnswer2.setText(incorrect2);
+
+            TextView hintView = ((TextView) findViewById(R.id.flashcard_hint));
+            if (hint.isEmpty()) {
+                hintView.setText("You haven't provided a hint for this question!");
+            } else {
+                hintView.setText("Hint: " + hint);
+            }
 
             Snackbar.make(flashcardQuestion,
                     "Card created successfully!",
