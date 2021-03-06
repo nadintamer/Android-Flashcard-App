@@ -78,4 +78,13 @@
         android:id="@+id/toggle_choices_visibility"
         android:src="@drawable/eye_hidden"/>
 
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="30dp"
+        android:id="@+id/add_new_card"
+        android:src="@drawable/plus_icon"/>
+
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.example.flashcardapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -109,6 +110,16 @@ public class MainActivity extends AppCompatActivity {
                     toggleButton.setImageResource(R.drawable.eye_hidden);
                     answerChoicesVisible = true;
                 }
+            }
+        });
+
+        ImageView addNewCardButton = ((ImageView) findViewById(R.id.add_new_card));
+
+        addNewCardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, AddCardActivity.class);
+                startActivity(i);
             }
         });
 
