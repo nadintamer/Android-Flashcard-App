@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="10dp"
-        android:hint="Enter your question here!"/>
+        android:hint="Enter the answer here!"
+        android:theme="@style/EditTextTheme"/>
 
     <EditText
         android:id="@+id/enterAnswer"
@@ -20,7 +21,8 @@
         android:layout_height="60dp"
         android:layout_below="@+id/enterQuestion"
         android:layout_margin="10dp"
-        android:hint="Enter the answer here!"/>
+        android:hint="Enter the answer here!"
+        android:theme="@style/EditTextTheme"/>
 
     <EditText
         android:id="@+id/enterIncorrectAnswer1"
@@ -28,7 +30,8 @@
         android:layout_height="60dp"
         android:layout_below="@+id/enterAnswer"
         android:layout_margin="10dp"
-        android:hint="Enter an incorrect answer here!"/>
+        android:hint="Enter an incorrect answer here!"
+        android:theme="@style/EditTextTheme"/>
 
     <EditText
         android:id="@+id/enterIncorrectAnswer2"
@@ -36,7 +39,8 @@
         android:layout_height="60dp"
         android:layout_below="@+id/enterIncorrectAnswer1"
         android:layout_margin="10dp"
-        android:hint="Enter another incorrect answer here!"/>
+        android:hint="Enter another incorrect answer here!"
+        android:theme="@style/EditTextTheme"/>
 
     <EditText
         android:id="@+id/enterHint"
@@ -44,7 +48,8 @@
         android:layout_height="60dp"
         android:layout_below="@+id/enterIncorrectAnswer2"
         android:layout_margin="10dp"
-        android:hint="Enter a hint here (optional)"/>
+        android:hint="Enter a hint here (optional)"
+        android:theme="@style/EditTextTheme"/>
 
     <ImageView
         android:layout_width="60dp"
