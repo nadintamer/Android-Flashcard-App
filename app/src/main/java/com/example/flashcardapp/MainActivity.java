@@ -119,9 +119,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, AddCardActivity.class);
-                startActivity(i);
+                startActivityForResult(i, 100);
             }
         });
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            String question = data.getExtras().getString("question");
+            String answer = data.getExtras().getString("answer");
+
+            TextView flashcardQuestion = ((TextView) findViewById(R.id.flashcard_question));
+            flashcardQuestion.setText(question);
+
+            TextView correctAnswer = ((TextView) findViewById(R.id.flashcard_answer2));
+            correctAnswer.setText(answer);
+        }
     }
 }

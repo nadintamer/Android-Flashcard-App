@@ -7,6 +7,30 @@
     android:id="@+id/parent"
     tools:context=".AddCardActivity">
 
+    <EditText
+        android:id="@+id/enterQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_margin="20dp"
+        android:hint="Enter your question here!"/>
+
+    <EditText
+        android:id="@+id/enterAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_below="@+id/enterQuestion"
+        android:layout_margin="20dp"
+        android:hint="Enter the answer here!"/>
+
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="30dp"
+        android:id="@+id/save"
+        android:src="@drawable/save_icon"/>
+
     <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
