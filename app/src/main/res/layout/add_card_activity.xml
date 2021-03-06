@@ -7,15 +7,13 @@
     android:id="@+id/parent"
     tools:context=".AddCardActivity">
 
-    <TextView
-        android:id="@+id/add_new_flashcard"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:background="@drawable/card_background"
-        android:elevation="5dp"
-        android:text="Add a new card here!"
-        android:textSize="40sp" />
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="30dp"
+        android:id="@+id/cancel"
+        android:src="@drawable/cancel_icon"/>
 
 </RelativeLayout>
