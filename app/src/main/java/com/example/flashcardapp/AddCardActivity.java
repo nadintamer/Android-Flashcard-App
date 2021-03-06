@@ -16,7 +16,7 @@ public class AddCardActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_card_activity);
-;
+
         ImageView cancelButton = ((ImageView) findViewById(R.id.cancel));
         ImageView saveButton = ((ImageView) findViewById(R.id.save));
         EditText questionField = ((EditText) findViewById(R.id.enterQuestion));
@@ -24,6 +24,18 @@ public class AddCardActivity  extends AppCompatActivity {
         EditText incorrectField1 = ((EditText) findViewById(R.id.enterIncorrectAnswer1));
         EditText incorrectField2 = ((EditText) findViewById(R.id.enterIncorrectAnswer2));
         EditText hintField = ((EditText) findViewById(R.id.enterHint));
+
+        String question = getIntent().getStringExtra("question");
+        String answer = getIntent().getStringExtra("answer");
+        String incorrect1 = getIntent().getStringExtra("incorrect1");
+        String incorrect2 = getIntent().getStringExtra("incorrect2");
+        String hint = getIntent().getStringExtra("hint");
+
+        questionField.setText(question);
+        answerField.setText(answer);
+        incorrectField1.setText(incorrect1);
+        incorrectField2.setText(incorrect2);
+        hintField.setText(hint);
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override

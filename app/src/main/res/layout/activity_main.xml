@@ -87,4 +87,13 @@
         android:id="@+id/add_new_card"
         android:src="@drawable/plus_icon"/>
 
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="30dp"
+        android:id="@+id/edit_card"
+        android:src="@drawable/edit_icon"/>
+
 </RelativeLayout>

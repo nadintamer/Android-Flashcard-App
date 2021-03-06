@@ -124,6 +124,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(i, 100);
             }
         });
+
+        ImageView editButton = ((ImageView) findViewById(R.id.edit_card));
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, AddCardActivity.class);
+                i.putExtra("question", flashcardQuestion.getText().toString());
+                i.putExtra("answer", correctAnswer.getText().toString());
+                i.putExtra("incorrect1", incorrectAnswer1.getText().toString());
+                i.putExtra("incorrect2", incorrectAnswer2.getText().toString());
+                i.putExtra("hint", flashcardHint.getText().toString().substring(6));
+                startActivityForResult(i, 100);
+            }
+        });
     }
 
     @Override
@@ -151,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
 
             TextView hintView = ((TextView) findViewById(R.id.flashcard_hint));
             if (hint.isEmpty()) {
-                hintView.setText("You haven't provided a hint for this question!");
+                hintView.setText("Hint: You haven't provided a hint for this question!");
             } else {
                 hintView.setText("Hint: " + hint);
             }
