@@ -10,8 +10,12 @@ import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     boolean answerChoicesVisible = true;
+    FlashcardDatabase flashcardDatabase;
+    List<Flashcard> allFlashcards;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +24,19 @@ public class MainActivity extends AppCompatActivity {
 
         TextView flashcardQuestion = ((TextView) findViewById(R.id.flashcard_question));
         TextView flashcardHint = ((TextView) findViewById(R.id.flashcard_hint));
+        TextView incorrectAnswer1 = ((TextView) findViewById(R.id.flashcard_answer1));
+        TextView incorrectAnswer2 = ((TextView) findViewById(R.id.flashcard_answer3));
+        TextView correctAnswer = ((TextView) findViewById(R.id.flashcard_answer2));
+
+        flashcardDatabase = new FlashcardDatabase(getApplicationContext());
+        allFlashcards = flashcardDatabase.getAllCards();
+
+        if (allFlashcards != null && !allFlashcards.isEmpty()) {
+            String question = allFlashcards.get(0).getQuestion();
+            String answer = allFlashcards.get(0).getAnswer();
+            flashcardQuestion.setText(question);
+            correctAnswer.setText(answer);
+        }
 
         // User can tap on question to see answer
         flashcardQuestion.setOnClickListener(new View.OnClickListener() {
@@ -40,10 +57,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // User can tap on multiple choice answers to see whether they're correct
-        TextView incorrectAnswer1 = ((TextView) findViewById(R.id.flashcard_answer1));
-        TextView incorrectAnswer2 = ((TextView) findViewById(R.id.flashcard_answer3));
-        TextView correctAnswer = ((TextView) findViewById(R.id.flashcard_answer2));
-
         incorrectAnswer1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,6 +176,9 @@ public class MainActivity extends AppCompatActivity {
 
             TextView incorrectAnswer2 = ((TextView) findViewById(R.id.flashcard_answer3));
             incorrectAnswer2.setText(incorrect2);
+
+            flashcardDatabase.insertCard(new Flashcard(question, answer));
+            allFlashcards = flashcardDatabase.getAllCards();
 
             TextView hintView = ((TextView) findViewById(R.id.flashcard_hint));
             if (hint.isEmpty()) {
