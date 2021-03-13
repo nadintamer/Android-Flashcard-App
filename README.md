@@ -1,6 +1,24 @@
 # Android Flashcard App 🗃✨
 Developed during CodePath's Intro to Mobile Product Development course. 
 
+## Lab 3
+
+### App Description
+User can now create multiple cards and browse through them, and the cards persist after the app in relaunched. They can also delete and edit individual cards.
+
+### App Walkthrough
+<img src="https://i.imgur.com/XLdzytG.gif" width="200" height="400" />  
+
+## Required
+- [X] User can create a card and still see their created card when the app is relaunched
+- [X] User can create multiple cards and browse through all created cards
+
+## Optional
+- [X] User can delete a card and no longer see it in their deck anymore
+- [X] Flashcards are shown in random order instead of the order they were created in
+- [X] User can edit a card and see the edit saved when they browse through their deck of cards
+- [X] User can create flashcards with multiple answers and be able to browse through cards with multiple choice answers shown
+
 ## Lab 2
 
 ### App Description
