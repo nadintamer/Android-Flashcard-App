@@ -11,12 +11,23 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     boolean answerChoicesVisible = true;
     FlashcardDatabase flashcardDatabase;
     List<Flashcard> allFlashcards;
     int currentCardDisplayedIndex = 0;
+
+    int ADD_CARD_REQUEST_CODE = 100;
+    int EDIT_CARD_REQUEST_CODE = 200;
+
+    Flashcard cardToEdit;
+
+    public int getRandomNumber(int minNumber, int maxNumber) {
+        Random rand = new Random();
+        return rand.nextInt((maxNumber - minNumber) + 1) + minNumber;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         if (allFlashcards != null && !allFlashcards.isEmpty()) {
             Flashcard flashcard = allFlashcards.get(0);
             flashcardQuestion.setText(flashcard.getQuestion());
-            flashcardHint.setText(flashcard.getHint());
+            flashcardHint.setText("Hint: " + flashcard.getHint());
             correctAnswer.setText(flashcard.getAnswer());
             incorrectAnswer1.setText(flashcard.getWrongAnswer1());
             incorrectAnswer2.setText(flashcard.getWrongAnswer2());
@@ -137,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, AddCardActivity.class);
-                startActivityForResult(i, 100);
+                startActivityForResult(i, ADD_CARD_REQUEST_CODE);
             }
         });
 
@@ -146,13 +157,19 @@ public class MainActivity extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                for (Flashcard card : allFlashcards) {
+                    if (card.getQuestion() == flashcardQuestion.getText().toString()) {
+                        cardToEdit = card;
+                    }
+                }
+
                 Intent i = new Intent(MainActivity.this, AddCardActivity.class);
                 i.putExtra("question", flashcardQuestion.getText().toString());
                 i.putExtra("answer", correctAnswer.getText().toString());
                 i.putExtra("incorrect1", incorrectAnswer1.getText().toString());
                 i.putExtra("incorrect2", incorrectAnswer2.getText().toString());
                 i.putExtra("hint", flashcardHint.getText().toString().substring(6));
-                startActivityForResult(i, 100);
+                startActivityForResult(i, EDIT_CARD_REQUEST_CODE);
             }
         });
 
@@ -164,15 +181,18 @@ public class MainActivity extends AppCompatActivity {
                 if (allFlashcards.size() == 0) {
                     return;
                 }
-                currentCardDisplayedIndex++;
 
-                if (currentCardDisplayedIndex == allFlashcards.size()) {
-                    currentCardDisplayedIndex = 0;
+                int cardToDisplayIndex = getRandomNumber(0, allFlashcards.size() - 1);
+
+                while (cardToDisplayIndex == currentCardDisplayedIndex) {
+                    cardToDisplayIndex = getRandomNumber(0, allFlashcards.size() - 1);
                 }
+
+                currentCardDisplayedIndex = cardToDisplayIndex;
 
                 Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
                 flashcardQuestion.setText(flashcard.getQuestion());
-                flashcardHint.setText(flashcard.getHint());
+                flashcardHint.setText("Hint: " + flashcard.getHint());
                 correctAnswer.setText(flashcard.getAnswer());
                 incorrectAnswer1.setText(flashcard.getWrongAnswer1());
                 incorrectAnswer2.setText(flashcard.getWrongAnswer2());
@@ -187,15 +207,18 @@ public class MainActivity extends AppCompatActivity {
                 if (allFlashcards.size() == 0) {
                     return;
                 }
-                currentCardDisplayedIndex--;
 
-                if (currentCardDisplayedIndex == -1) {
-                    currentCardDisplayedIndex = allFlashcards.size() - 1;
+                int cardToDisplayIndex = getRandomNumber(0, allFlashcards.size() - 1);
+
+                while (cardToDisplayIndex == currentCardDisplayedIndex) {
+                    cardToDisplayIndex = getRandomNumber(0, allFlashcards.size() - 1);
                 }
+
+                currentCardDisplayedIndex = cardToDisplayIndex;
 
                 Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
                 flashcardQuestion.setText(flashcard.getQuestion());
-                flashcardHint.setText(flashcard.getHint());
+                flashcardHint.setText("Hint: " + flashcard.getHint());
                 correctAnswer.setText(flashcard.getAnswer());
                 incorrectAnswer1.setText(flashcard.getWrongAnswer1());
                 incorrectAnswer2.setText(flashcard.getWrongAnswer2());
@@ -225,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
 
                     Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
                     flashcardQuestion.setText(flashcard.getQuestion());
-                    flashcardHint.setText(flashcard.getHint());
+                    flashcardHint.setText("Hint: " + flashcard.getHint());
                     correctAnswer.setText(flashcard.getAnswer());
                     incorrectAnswer1.setText(flashcard.getWrongAnswer1());
                     incorrectAnswer2.setText(flashcard.getWrongAnswer2());
@@ -238,36 +261,50 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 100 && resultCode == RESULT_OK) {
-            String question = data.getExtras().getString("question");
-            String answer = data.getExtras().getString("answer");
-            String incorrect1 = data.getExtras().getString("incorrect1");
-            String incorrect2 = data.getExtras().getString("incorrect2");
-            String hint = data.getExtras().getString("hint");
+        String question = data.getExtras().getString("question");
+        String answer = data.getExtras().getString("answer");
+        String incorrect1 = data.getExtras().getString("incorrect1");
+        String incorrect2 = data.getExtras().getString("incorrect2");
+        String hint = data.getExtras().getString("hint");
 
-            TextView flashcardQuestion = ((TextView) findViewById(R.id.flashcard_question));
-            flashcardQuestion.setText(question);
+        TextView flashcardQuestion = ((TextView) findViewById(R.id.flashcard_question));
+        flashcardQuestion.setText(question);
 
-            TextView correctAnswer = ((TextView) findViewById(R.id.flashcard_answer2));
-            correctAnswer.setText(answer);
+        TextView correctAnswer = ((TextView) findViewById(R.id.flashcard_answer2));
+        correctAnswer.setText(answer);
 
-            TextView incorrectAnswer1 = ((TextView) findViewById(R.id.flashcard_answer1));
-            incorrectAnswer1.setText(incorrect1);
+        TextView incorrectAnswer1 = ((TextView) findViewById(R.id.flashcard_answer1));
+        incorrectAnswer1.setText(incorrect1);
 
-            TextView incorrectAnswer2 = ((TextView) findViewById(R.id.flashcard_answer3));
-            incorrectAnswer2.setText(incorrect2);
+        TextView incorrectAnswer2 = ((TextView) findViewById(R.id.flashcard_answer3));
+        incorrectAnswer2.setText(incorrect2);
 
-            if (hint.isEmpty()) {
-                hint = "You haven't provided a hint for this question!";
-            }
-            TextView hintView = ((TextView) findViewById(R.id.flashcard_hint));
-            hintView.setText("Hint: " + hint);
+        if (hint.isEmpty()) {
+            hint = "You haven't provided a hint for this question!";
+        }
+        TextView hintView = ((TextView) findViewById(R.id.flashcard_hint));
+        hintView.setText("Hint: " + hint);
 
+        if (requestCode == ADD_CARD_REQUEST_CODE && resultCode == RESULT_OK) {
             flashcardDatabase.insertCard(new Flashcard(question, answer, hint, incorrect1, incorrect2));
             allFlashcards = flashcardDatabase.getAllCards();
 
             Snackbar.make(flashcardQuestion,
                     "Card created successfully!",
+                    Snackbar.LENGTH_SHORT)
+                    .show();
+        } else if (requestCode == EDIT_CARD_REQUEST_CODE && resultCode == RESULT_OK) {
+            cardToEdit.setQuestion(question);
+            cardToEdit.setAnswer(answer);
+            cardToEdit.setWrongAnswer1(incorrect1);
+            cardToEdit.setWrongAnswer2(incorrect2);
+            cardToEdit.setHint(hint);
+
+            flashcardDatabase.updateCard(cardToEdit);
+            allFlashcards = flashcardDatabase.getAllCards();
+
+            Snackbar.make(flashcardQuestion,
+                    "Card edited successfully!",
                     Snackbar.LENGTH_SHORT)
                     .show();
         }
