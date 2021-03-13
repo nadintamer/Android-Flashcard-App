@@ -33,10 +33,12 @@ public class MainActivity extends AppCompatActivity {
         allFlashcards = flashcardDatabase.getAllCards();
 
         if (allFlashcards != null && !allFlashcards.isEmpty()) {
-            String question = allFlashcards.get(0).getQuestion();
-            String answer = allFlashcards.get(0).getAnswer();
-            flashcardQuestion.setText(question);
-            correctAnswer.setText(answer);
+            Flashcard flashcard = allFlashcards.get(0);
+            flashcardQuestion.setText(flashcard.getQuestion());
+            flashcardHint.setText(flashcard.getHint());
+            correctAnswer.setText(flashcard.getAnswer());
+            incorrectAnswer1.setText(flashcard.getWrongAnswer1());
+            incorrectAnswer2.setText(flashcard.getWrongAnswer2());
         }
 
         // User can tap on question to see answer
@@ -170,7 +172,10 @@ public class MainActivity extends AppCompatActivity {
 
                 Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
                 flashcardQuestion.setText(flashcard.getQuestion());
+                flashcardHint.setText(flashcard.getHint());
                 correctAnswer.setText(flashcard.getAnswer());
+                incorrectAnswer1.setText(flashcard.getWrongAnswer1());
+                incorrectAnswer2.setText(flashcard.getWrongAnswer2());
             }
         });
     }
@@ -198,15 +203,14 @@ public class MainActivity extends AppCompatActivity {
             TextView incorrectAnswer2 = ((TextView) findViewById(R.id.flashcard_answer3));
             incorrectAnswer2.setText(incorrect2);
 
-            flashcardDatabase.insertCard(new Flashcard(question, answer));
-            allFlashcards = flashcardDatabase.getAllCards();
-
-            TextView hintView = ((TextView) findViewById(R.id.flashcard_hint));
             if (hint.isEmpty()) {
-                hintView.setText("Hint: You haven't provided a hint for this question!");
-            } else {
-                hintView.setText("Hint: " + hint);
+                hint = "You haven't provided a hint for this question!";
             }
+            TextView hintView = ((TextView) findViewById(R.id.flashcard_hint));
+            hintView.setText("Hint: " + hint);
+
+            flashcardDatabase.insertCard(new Flashcard(question, answer, hint, incorrect1, incorrect2));
+            allFlashcards = flashcardDatabase.getAllCards();
 
             Snackbar.make(flashcardQuestion,
                     "Card created successfully!",

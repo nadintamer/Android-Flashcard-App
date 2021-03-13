@@ -19,12 +19,13 @@ public class Flashcard {
         this.answer = answer;
     }
 
-    Flashcard(@NonNull String question, @NonNull String answer, @Nullable String wrongAnswer1,@Nullable  String wrongAnswer2) {
+    Flashcard(@NonNull String question, @NonNull String answer, @Nullable String hint, @Nullable String wrongAnswer1,@Nullable  String wrongAnswer2) {
         this.uuid = UUID.randomUUID().toString();
         this.question = question;
         this.answer = answer;
         this.wrongAnswer1 = wrongAnswer1;
         this.wrongAnswer2 = wrongAnswer2;
+        this.hint = hint;
     }
 
     @PrimaryKey
@@ -56,6 +57,10 @@ public class Flashcard {
     @Nullable
     @ColumnInfo(name = "wrong_answer_2")
     private String wrongAnswer2;
+
+    @Nullable
+    @ColumnInfo(name = "hint")
+    private String hint;
 
     @NonNull
     public String getQuestion() {
@@ -91,5 +96,14 @@ public class Flashcard {
 
     public void setWrongAnswer2(@NonNull String wrongAnswer2) {
         this.wrongAnswer2 = wrongAnswer2;
+    }
+
+    @NonNull
+    public String getHint() {
+        return hint;
+    }
+
+    public void setHint(@NonNull String hint) {
+        this.hint = hint;
     }
 }
