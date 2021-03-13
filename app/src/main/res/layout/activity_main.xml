@@ -40,6 +40,15 @@
         android:src="@drawable/next_icon"/>
 
     <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/flashcard_question"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="30dp"
+        android:id="@+id/delete_card"
+        android:src="@drawable/trash_icon"/>
+
+    <ImageView
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_below="@+id/flashcard_question"

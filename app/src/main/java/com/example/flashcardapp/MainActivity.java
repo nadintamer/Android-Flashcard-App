@@ -201,6 +201,37 @@ public class MainActivity extends AppCompatActivity {
                 incorrectAnswer2.setText(flashcard.getWrongAnswer2());
             }
         });
+
+        ImageView deleteButton = ((ImageView) findViewById(R.id.delete_card));
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flashcardDatabase.deleteCard(flashcardQuestion.getText().toString());
+                allFlashcards = flashcardDatabase.getAllCards();
+
+                if (allFlashcards.isEmpty()) {
+                    flashcardQuestion.setText("Add a new card!");
+                    flashcardHint.setText("");
+                    correctAnswer.setText("");
+                    incorrectAnswer1.setText("");
+                    incorrectAnswer2.setText("");
+                } else {
+                    currentCardDisplayedIndex--;
+
+                    if (currentCardDisplayedIndex == -1) {
+                        currentCardDisplayedIndex = allFlashcards.size() - 1;
+                    }
+
+                    Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
+                    flashcardQuestion.setText(flashcard.getQuestion());
+                    flashcardHint.setText(flashcard.getHint());
+                    correctAnswer.setText(flashcard.getAnswer());
+                    incorrectAnswer1.setText(flashcard.getWrongAnswer1());
+                    incorrectAnswer2.setText(flashcard.getWrongAnswer2());
+                }
+            }
+        });
     }
 
     @Override
