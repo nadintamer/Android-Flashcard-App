@@ -30,13 +30,21 @@
         android:text="Hint: It's a bone in your leg!"
         android:textSize="40sp"/>
 
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/flashcard_question"
+        android:layout_alignParentRight="true"
+        android:layout_marginHorizontal="30dp"
+        android:id="@+id/next_card"
+        android:src="@drawable/next_icon"/>
+
     <TextView
         android:id="@+id/flashcard_answer1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="75dp"
         android:layout_marginHorizontal="20dp"
-        android:padding="5dp"
         android:layout_below="@+id/flashcard_question"
         android:gravity="center"
         android:background="@color/orange"
@@ -49,7 +57,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="20dp"
-        android:padding="5dp"
         android:layout_below="@+id/flashcard_answer1"
         android:gravity="center"
         android:background="@color/orange"
@@ -62,7 +69,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="20dp"
-        android:padding="5dp"
         android:layout_below="@+id/flashcard_answer2"
         android:gravity="center"
         android:background="@color/orange"

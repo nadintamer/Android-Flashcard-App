@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     boolean answerChoicesVisible = true;
     FlashcardDatabase flashcardDatabase;
     List<Flashcard> allFlashcards;
+    int currentCardDisplayedIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -150,6 +151,26 @@ public class MainActivity extends AppCompatActivity {
                 i.putExtra("incorrect2", incorrectAnswer2.getText().toString());
                 i.putExtra("hint", flashcardHint.getText().toString().substring(6));
                 startActivityForResult(i, 100);
+            }
+        });
+
+        ImageView nextButton = ((ImageView) findViewById(R.id.next_card));
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (allFlashcards.size() == 0) {
+                    return;
+                }
+                currentCardDisplayedIndex++;
+
+                if (currentCardDisplayedIndex == allFlashcards.size()) {
+                    currentCardDisplayedIndex = 0;
+                }
+
+                Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
+                flashcardQuestion.setText(flashcard.getQuestion());
+                correctAnswer.setText(flashcard.getAnswer());
             }
         });
     }
