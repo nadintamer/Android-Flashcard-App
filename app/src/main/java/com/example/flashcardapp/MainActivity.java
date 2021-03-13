@@ -178,6 +178,29 @@ public class MainActivity extends AppCompatActivity {
                 incorrectAnswer2.setText(flashcard.getWrongAnswer2());
             }
         });
+
+        ImageView prevButton = ((ImageView) findViewById(R.id.prev_card));
+
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (allFlashcards.size() == 0) {
+                    return;
+                }
+                currentCardDisplayedIndex--;
+
+                if (currentCardDisplayedIndex == -1) {
+                    currentCardDisplayedIndex = allFlashcards.size() - 1;
+                }
+
+                Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
+                flashcardQuestion.setText(flashcard.getQuestion());
+                flashcardHint.setText(flashcard.getHint());
+                correctAnswer.setText(flashcard.getAnswer());
+                incorrectAnswer1.setText(flashcard.getWrongAnswer1());
+                incorrectAnswer2.setText(flashcard.getWrongAnswer2());
+            }
+        });
     }
 
     @Override

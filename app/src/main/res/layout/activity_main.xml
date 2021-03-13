@@ -39,6 +39,16 @@
         android:id="@+id/next_card"
         android:src="@drawable/next_icon"/>
 
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/flashcard_question"
+        android:layout_alignParentLeft="true"
+        android:layout_marginHorizontal="30dp"
+        android:id="@+id/prev_card"
+        android:rotation="180"
+        android:src="@drawable/next_icon"/>
+
     <TextView
         android:id="@+id/flashcard_answer1"
         android:layout_width="match_parent"
