@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // get the center for the clipping circle
-                int cx = flashcardHint.getWidth() / 2;
+                /*int cx = flashcardHint.getWidth() / 2;
                 int cy = flashcardHint.getHeight() / 2;
 
                 // get the final radius for the clipping circle
@@ -75,7 +75,29 @@ public class MainActivity extends AppCompatActivity {
                 flashcardHint.setVisibility(View.VISIBLE);
 
                 anim.setDuration(1000);
-                anim.start();
+                anim.start();*/
+
+                flashcardQuestion.setCameraDistance(25000);
+                flashcardHint.setCameraDistance(25000);
+
+                flashcardQuestion.animate()
+                        .rotationY(90)
+                        .setDuration(200)
+                        .withEndAction(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        flashcardQuestion.setVisibility(View.INVISIBLE);
+                                        flashcardHint.setVisibility(View.VISIBLE);
+                                        // second quarter turn
+                                        flashcardHint.setRotationY(-90);
+                                        flashcardHint.animate()
+                                                .rotationY(0)
+                                                .setDuration(200)
+                                                .start();
+                                    }
+                                }
+                        ).start();
             }
         });
 
@@ -83,8 +105,27 @@ public class MainActivity extends AppCompatActivity {
         flashcardHint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flashcardHint.setVisibility(View.INVISIBLE);
-                flashcardQuestion.setVisibility(View.VISIBLE);
+                flashcardQuestion.setCameraDistance(25000);
+                flashcardHint.setCameraDistance(25000);
+
+                flashcardHint.animate()
+                        .rotationY(90)
+                        .setDuration(200)
+                        .withEndAction(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        flashcardHint.setVisibility(View.INVISIBLE);
+                                        flashcardQuestion.setVisibility(View.VISIBLE);
+                                        // second quarter turn
+                                        flashcardQuestion.setRotationY(-90);
+                                        flashcardQuestion.animate()
+                                                .rotationY(0)
+                                                .setDuration(200)
+                                                .start();
+                                    }
+                                }
+                        ).start();
             }
         });
 

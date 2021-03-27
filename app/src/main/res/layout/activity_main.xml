@@ -14,7 +14,6 @@
         android:layout_margin="10dp"
         android:gravity="center"
         android:background="@drawable/card_background"
-        android:elevation="5dp"
         android:text="What is the largest bone in the human body?"
         android:textSize="40sp" />
 
@@ -26,7 +25,6 @@
         android:gravity="center"
         android:visibility="invisible"
         android:background="@drawable/answer_background"
-        android:elevation="5dp"
         android:text="Hint: It's a bone in your leg!"
         android:textSize="40sp"/>
 
