@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         TextView incorrectAnswer2 = ((TextView) findViewById(R.id.flashcard_answer3));
         TextView correctAnswer = ((TextView) findViewById(R.id.flashcard_answer2));
         TextView timer = ((TextView) findViewById(R.id.timer));
+        ImageView nextButton = ((ImageView) findViewById(R.id.next_card));
+        ImageView prevButton = ((ImageView) findViewById(R.id.prev_card));
 
         flashcardDatabase = new FlashcardDatabase(getApplicationContext());
         allFlashcards = flashcardDatabase.getAllCards();
@@ -66,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
         };
 
         startTimer();
+
+        if (allFlashcards.size() == 0 || allFlashcards.size() == 1) {
+            nextButton.setVisibility(View.INVISIBLE);
+            prevButton.setVisibility(View.INVISIBLE);
+        }
 
         if (allFlashcards != null && !allFlashcards.isEmpty()) {
             Flashcard flashcard = allFlashcards.get(0);
@@ -240,8 +247,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ImageView nextButton = ((ImageView) findViewById(R.id.next_card));
-
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -289,8 +294,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-        ImageView prevButton = ((ImageView) findViewById(R.id.prev_card));
 
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -425,6 +428,8 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ADD_CARD_REQUEST_CODE && resultCode == RESULT_OK) {
             flashcardDatabase.insertCard(new Flashcard(question, answer, hint, incorrect1, incorrect2));
             allFlashcards = flashcardDatabase.getAllCards();
+
+            currentCardDisplayedIndex = allFlashcards.size() - 1;
 
             timer.setVisibility(View.VISIBLE);
             correctAnswer.setVisibility(View.VISIBLE);
