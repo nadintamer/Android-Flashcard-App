@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // get the center for the clipping circle
-                /*int cx = flashcardHint.getWidth() / 2;
+                int cx = flashcardHint.getWidth() / 2;
                 int cy = flashcardHint.getHeight() / 2;
 
                 // get the final radius for the clipping circle
@@ -73,32 +73,11 @@ public class MainActivity extends AppCompatActivity {
 
                 // hide the question and show the answer to prepare for playing the animation!
                 flashcardQuestion.setVisibility(View.INVISIBLE);
+                flashcardHint.animate().rotationY(0).setDuration(0).start();
                 flashcardHint.setVisibility(View.VISIBLE);
 
                 anim.setDuration(1000);
-                anim.start();*/
-
-                flashcardQuestion.setCameraDistance(25000);
-                flashcardHint.setCameraDistance(25000);
-
-                flashcardQuestion.animate()
-                        .rotationY(90)
-                        .setDuration(200)
-                        .withEndAction(
-                                new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        flashcardQuestion.setVisibility(View.INVISIBLE);
-                                        flashcardHint.setVisibility(View.VISIBLE);
-                                        // second quarter turn
-                                        flashcardHint.setRotationY(-90);
-                                        flashcardHint.animate()
-                                                .rotationY(0)
-                                                .setDuration(200)
-                                                .start();
-                                    }
-                                }
-                        ).start();
+                anim.start();
             }
         });
 
@@ -182,6 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // Switch back to showing question
                 flashcardHint.setVisibility(View.INVISIBLE);
+                flashcardQuestion.animate().rotationY(0).setDuration(0).start();
                 flashcardQuestion.setVisibility(View.VISIBLE);
             }
         });
