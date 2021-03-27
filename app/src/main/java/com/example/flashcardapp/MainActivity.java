@@ -374,6 +374,12 @@ public class MainActivity extends AppCompatActivity {
                     correctAnswer.setText(flashcard.getAnswer());
                     incorrectAnswer1.setText(flashcard.getWrongAnswer1());
                     incorrectAnswer2.setText(flashcard.getWrongAnswer2());
+
+                    if (allFlashcards.size() == 0 || allFlashcards.size() == 1) {
+                        nextButton.setVisibility(View.INVISIBLE);
+                        prevButton.setVisibility(View.INVISIBLE);
+                    }
+
                     startTimer();
                 }
             }
@@ -407,6 +413,8 @@ public class MainActivity extends AppCompatActivity {
         incorrectAnswer2.setText(incorrect2);
 
         TextView timer = ((TextView) findViewById(R.id.timer));
+        ImageView nextButton = ((ImageView) findViewById(R.id.next_card));
+        ImageView prevButton = ((ImageView) findViewById(R.id.prev_card));
 
         if (hint.isEmpty()) {
             hint = "You haven't provided a hint for this question!";
@@ -422,6 +430,11 @@ public class MainActivity extends AppCompatActivity {
             correctAnswer.setVisibility(View.VISIBLE);
             incorrectAnswer1.setVisibility(View.VISIBLE);
             incorrectAnswer2.setVisibility(View.VISIBLE);
+
+            if (allFlashcards.size() > 1) {
+                nextButton.setVisibility(View.VISIBLE);
+                prevButton.setVisibility(View.VISIBLE);
+            }
 
             Snackbar.make(flashcardQuestion,
                     "Card created successfully!",
