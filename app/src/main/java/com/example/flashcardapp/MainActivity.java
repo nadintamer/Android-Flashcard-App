@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.animation.Animation;
@@ -28,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
     int EDIT_CARD_REQUEST_CODE = 200;
 
     Flashcard cardToEdit;
+    CountDownTimer countdownTimer;
+
+    private void startTimer() {
+        countdownTimer.cancel();
+        countdownTimer.start();
+    }
 
     public int getRandomNumber(int minNumber, int maxNumber) {
         Random rand = new Random();
@@ -44,9 +51,19 @@ public class MainActivity extends AppCompatActivity {
         TextView incorrectAnswer1 = ((TextView) findViewById(R.id.flashcard_answer1));
         TextView incorrectAnswer2 = ((TextView) findViewById(R.id.flashcard_answer3));
         TextView correctAnswer = ((TextView) findViewById(R.id.flashcard_answer2));
+        TextView timer = ((TextView) findViewById(R.id.timer));
 
         flashcardDatabase = new FlashcardDatabase(getApplicationContext());
         allFlashcards = flashcardDatabase.getAllCards();
+
+        countdownTimer = new CountDownTimer(16000, 1000) {
+            public void onTick(long millisUntilFinished) {
+                timer.setText("" + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+            }
+        };
 
         if (allFlashcards != null && !allFlashcards.isEmpty()) {
             Flashcard flashcard = allFlashcards.get(0);
@@ -55,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             correctAnswer.setText(flashcard.getAnswer());
             incorrectAnswer1.setText(flashcard.getWrongAnswer1());
             incorrectAnswer2.setText(flashcard.getWrongAnswer2());
+            startTimer();
         }
 
         // User can tap on question to see answer
@@ -163,6 +181,8 @@ public class MainActivity extends AppCompatActivity {
                 flashcardHint.setVisibility(View.INVISIBLE);
                 flashcardQuestion.animate().rotationY(0).setDuration(0).start();
                 flashcardQuestion.setVisibility(View.VISIBLE);
+
+                startTimer();
             }
         });
 
@@ -256,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
                         incorrectAnswer2.setText(flashcard.getWrongAnswer2());
 
                         flashcardQuestion.startAnimation(rightInAnim);
+                        startTimer();
                     }
 
                     @Override
@@ -305,6 +326,7 @@ public class MainActivity extends AppCompatActivity {
                         incorrectAnswer2.setText(flashcard.getWrongAnswer2());
 
                         flashcardQuestion.startAnimation(leftInAnim);
+                        startTimer();
                     }
 
                     @Override
@@ -335,6 +357,8 @@ public class MainActivity extends AppCompatActivity {
                     incorrectAnswer2.setVisibility(View.INVISIBLE);
                     toggleButton.setImageResource(R.drawable.eye_visible);
                     answerChoicesVisible = false;
+
+                    timer.setVisibility(View.INVISIBLE);
                 } else {
                     currentCardDisplayedIndex--;
 
@@ -348,6 +372,7 @@ public class MainActivity extends AppCompatActivity {
                     correctAnswer.setText(flashcard.getAnswer());
                     incorrectAnswer1.setText(flashcard.getWrongAnswer1());
                     incorrectAnswer2.setText(flashcard.getWrongAnswer2());
+                    startTimer();
                 }
             }
         });
@@ -379,6 +404,8 @@ public class MainActivity extends AppCompatActivity {
         TextView incorrectAnswer2 = ((TextView) findViewById(R.id.flashcard_answer3));
         incorrectAnswer2.setText(incorrect2);
 
+        TextView timer = ((TextView) findViewById(R.id.timer));
+
         if (hint.isEmpty()) {
             hint = "You haven't provided a hint for this question!";
         }
@@ -389,6 +416,7 @@ public class MainActivity extends AppCompatActivity {
             flashcardDatabase.insertCard(new Flashcard(question, answer, hint, incorrect1, incorrect2));
             allFlashcards = flashcardDatabase.getAllCards();
 
+            timer.setVisibility(View.VISIBLE);
             correctAnswer.setVisibility(View.VISIBLE);
             incorrectAnswer1.setVisibility(View.VISIBLE);
             incorrectAnswer2.setVisibility(View.VISIBLE);
@@ -397,6 +425,7 @@ public class MainActivity extends AppCompatActivity {
                     "Card created successfully!",
                     Snackbar.LENGTH_SHORT)
                     .show();
+            startTimer();
         } else if (requestCode == EDIT_CARD_REQUEST_CODE && resultCode == RESULT_OK) {
             cardToEdit.setQuestion(question);
             cardToEdit.setAnswer(answer);
@@ -411,6 +440,7 @@ public class MainActivity extends AppCompatActivity {
                     "Card edited successfully!",
                     Snackbar.LENGTH_SHORT)
                     .show();
+            startTimer();
         }
     }
 }

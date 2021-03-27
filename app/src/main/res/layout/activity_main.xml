@@ -8,10 +8,21 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/timer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="20"
+        android:textSize="30sp"
+        android:textColor="@color/tomato" />
+
+    <TextView
         android:id="@+id/flashcard_question"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="10dp"
+        android:layout_below="@+id/timer"
         android:gravity="center"
         android:background="@drawable/card_background"
         android:text="What is the largest bone in the human body?"
@@ -22,6 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="10dp"
+        android:layout_below="@+id/timer"
         android:gravity="center"
         android:visibility="invisible"
         android:background="@drawable/answer_background"
@@ -66,7 +78,7 @@
         android:gravity="center"
         android:background="@color/orange"
         android:text="The tibia"
-        android:textSize="40sp"/>
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/flashcard_answer2"
@@ -78,7 +90,7 @@
         android:gravity="center"
         android:background="@color/orange"
         android:text="The femur"
-        android:textSize="40sp"/>
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/flashcard_answer3"
@@ -90,14 +102,14 @@
         android:gravity="center"
         android:background="@color/orange"
         android:text="The humerus"
-        android:textSize="40sp"/>
+        android:textSize="30sp"/>
 
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         android:id="@+id/toggle_choices_visibility"
         android:src="@drawable/eye_hidden"/>
 
@@ -106,7 +118,7 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         android:id="@+id/add_new_card"
         android:src="@drawable/plus_icon"/>
 
@@ -115,7 +127,7 @@
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_margin="30dp"
+        android:layout_margin="20dp"
         android:id="@+id/edit_card"
         android:src="@drawable/edit_icon"/>
 
