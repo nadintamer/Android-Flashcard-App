@@ -216,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent i = new Intent(MainActivity.this, AddCardActivity.class);
                 startActivityForResult(i, ADD_CARD_REQUEST_CODE);
                 // overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                // overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
         });
 
