@@ -2,9 +2,13 @@ package com.example.flashcardapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -56,8 +60,22 @@ public class MainActivity extends AppCompatActivity {
         flashcardQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flashcardHint.setVisibility(View.VISIBLE);
+                // get the center for the clipping circle
+                int cx = flashcardHint.getWidth() / 2;
+                int cy = flashcardHint.getHeight() / 2;
+
+                // get the final radius for the clipping circle
+                float finalRadius = (float) Math.hypot(cx, cy);
+
+                // create the animator for this view (the start radius is zero)
+                Animator anim = ViewAnimationUtils.createCircularReveal(flashcardHint, cx, cy, 0f, finalRadius);
+
+                // hide the question and show the answer to prepare for playing the animation!
                 flashcardQuestion.setVisibility(View.INVISIBLE);
+                flashcardHint.setVisibility(View.VISIBLE);
+
+                anim.setDuration(1000);
+                anim.start();
             }
         });
 
@@ -149,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, AddCardActivity.class);
                 startActivityForResult(i, ADD_CARD_REQUEST_CODE);
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                // overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         });
 
@@ -179,6 +197,9 @@ public class MainActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final Animation leftOutAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.left_out);
+                final Animation rightInAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.right_in);
+
                 if (allFlashcards.size() == 0) {
                     return;
                 }
@@ -191,12 +212,32 @@ public class MainActivity extends AppCompatActivity {
 
                 currentCardDisplayedIndex = cardToDisplayIndex;
 
-                Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
-                flashcardQuestion.setText(flashcard.getQuestion());
-                flashcardHint.setText("Hint: " + flashcard.getHint());
-                correctAnswer.setText(flashcard.getAnswer());
-                incorrectAnswer1.setText(flashcard.getWrongAnswer1());
-                incorrectAnswer2.setText(flashcard.getWrongAnswer2());
+                flashcardQuestion.startAnimation(leftOutAnim);
+
+                leftOutAnim.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        // this method is called when the animation first starts
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
+                        flashcardQuestion.setText(flashcard.getQuestion());
+                        flashcardHint.setText("Hint: " + flashcard.getHint());
+                        correctAnswer.setText(flashcard.getAnswer());
+                        incorrectAnswer1.setText(flashcard.getWrongAnswer1());
+                        incorrectAnswer2.setText(flashcard.getWrongAnswer2());
+
+                        flashcardQuestion.startAnimation(rightInAnim);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                        // we don't need to worry about this method
+                    }
+                });
+
             }
         });
 
@@ -205,6 +246,9 @@ public class MainActivity extends AppCompatActivity {
         prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final Animation leftInAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.left_in);
+                final Animation rightOutAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.right_out);
+
                 if (allFlashcards.size() == 0) {
                     return;
                 }
@@ -217,12 +261,31 @@ public class MainActivity extends AppCompatActivity {
 
                 currentCardDisplayedIndex = cardToDisplayIndex;
 
-                Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
-                flashcardQuestion.setText(flashcard.getQuestion());
-                flashcardHint.setText("Hint: " + flashcard.getHint());
-                correctAnswer.setText(flashcard.getAnswer());
-                incorrectAnswer1.setText(flashcard.getWrongAnswer1());
-                incorrectAnswer2.setText(flashcard.getWrongAnswer2());
+                flashcardQuestion.startAnimation(rightOutAnim);
+
+                rightOutAnim.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+                        // this method is called when the animation first starts
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        Flashcard flashcard = allFlashcards.get(currentCardDisplayedIndex);
+                        flashcardQuestion.setText(flashcard.getQuestion());
+                        flashcardHint.setText("Hint: " + flashcard.getHint());
+                        correctAnswer.setText(flashcard.getAnswer());
+                        incorrectAnswer1.setText(flashcard.getWrongAnswer1());
+                        incorrectAnswer2.setText(flashcard.getWrongAnswer2());
+
+                        flashcardQuestion.startAnimation(leftInAnim);
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+                        // we don't need to worry about this method
+                    }
+                });
             }
         });
 
