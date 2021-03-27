@@ -149,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, AddCardActivity.class);
                 startActivityForResult(i, ADD_CARD_REQUEST_CODE);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         });
 
@@ -266,6 +267,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_CANCELED) {
+            return;
+        }
 
         String question = data.getExtras().getString("question");
         String answer = data.getExtras().getString("answer");

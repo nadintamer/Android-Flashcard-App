@@ -2,6 +2,7 @@ package com.example.flashcardapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -40,6 +41,7 @@ public class AddCardActivity  extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setResult(Activity.RESULT_CANCELED);
                 finish();
             }
         });
