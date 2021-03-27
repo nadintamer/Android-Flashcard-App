@@ -239,9 +239,12 @@ public class MainActivity extends AppCompatActivity {
                     correctAnswer.setText("");
                     incorrectAnswer1.setText("");
                     incorrectAnswer2.setText("");
+
                     correctAnswer.setVisibility(View.INVISIBLE);
                     incorrectAnswer1.setVisibility(View.INVISIBLE);
                     incorrectAnswer2.setVisibility(View.INVISIBLE);
+                    toggleButton.setImageResource(R.drawable.eye_visible);
+                    answerChoicesVisible = false;
                 } else {
                     currentCardDisplayedIndex--;
 
