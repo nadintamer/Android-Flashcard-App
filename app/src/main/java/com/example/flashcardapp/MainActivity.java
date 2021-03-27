@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        startTimer();
+
         if (allFlashcards != null && !allFlashcards.isEmpty()) {
             Flashcard flashcard = allFlashcards.get(0);
             flashcardQuestion.setText(flashcard.getQuestion());
