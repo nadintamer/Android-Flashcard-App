@@ -235,10 +235,13 @@ public class MainActivity extends AppCompatActivity {
 
                 if (allFlashcards.isEmpty()) {
                     flashcardQuestion.setText("Add a new card!");
-                    flashcardHint.setText("");
+                    flashcardHint.setText("Use the + button to add a new card!");
                     correctAnswer.setText("");
                     incorrectAnswer1.setText("");
                     incorrectAnswer2.setText("");
+                    correctAnswer.setVisibility(View.INVISIBLE);
+                    incorrectAnswer1.setVisibility(View.INVISIBLE);
+                    incorrectAnswer2.setVisibility(View.INVISIBLE);
                 } else {
                     currentCardDisplayedIndex--;
 
@@ -288,6 +291,10 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == ADD_CARD_REQUEST_CODE && resultCode == RESULT_OK) {
             flashcardDatabase.insertCard(new Flashcard(question, answer, hint, incorrect1, incorrect2));
             allFlashcards = flashcardDatabase.getAllCards();
+
+            correctAnswer.setVisibility(View.VISIBLE);
+            incorrectAnswer1.setVisibility(View.VISIBLE);
+            incorrectAnswer2.setVisibility(View.VISIBLE);
 
             Snackbar.make(flashcardQuestion,
                     "Card created successfully!",
