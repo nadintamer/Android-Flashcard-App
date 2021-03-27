@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.plattysoft.leonids.ParticleSystem;
 
 import java.util.List;
 import java.util.Random;
@@ -154,6 +155,10 @@ public class MainActivity extends AppCompatActivity {
                 correctAnswer.setBackgroundColor(getResources().getColor(R.color.green, null));
                 incorrectAnswer1.setBackgroundColor(getResources().getColor(R.color.orange, null));
                 incorrectAnswer2.setBackgroundColor(getResources().getColor(R.color.orange, null));
+
+                new ParticleSystem(MainActivity.this, 100, R.drawable.confetti, 3000)
+                        .setSpeedRange(0.2f, 0.5f)
+                        .oneShot(correctAnswer, 100);
             }
         });
 
