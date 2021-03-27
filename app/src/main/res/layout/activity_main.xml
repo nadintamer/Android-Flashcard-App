@@ -45,6 +45,7 @@
         android:layout_height="60dp"
         android:layout_below="@+id/flashcard_question"
         android:layout_alignParentRight="true"
+        android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="30dp"
         android:id="@+id/next_card"
         android:src="@drawable/next_icon"/>
@@ -54,6 +55,7 @@
         android:layout_height="50dp"
         android:layout_below="@+id/flashcard_question"
         android:layout_centerHorizontal="true"
+        android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="30dp"
         android:id="@+id/delete_card"
         android:src="@drawable/trash_icon"/>
@@ -63,6 +65,7 @@
         android:layout_height="60dp"
         android:layout_below="@+id/flashcard_question"
         android:layout_alignParentLeft="true"
+        android:layout_marginVertical="10dp"
         android:layout_marginHorizontal="30dp"
         android:id="@+id/prev_card"
         android:rotation="180"
@@ -72,7 +75,7 @@
         android:id="@+id/flashcard_answer1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="100dp"
         android:layout_marginHorizontal="20dp"
         android:layout_below="@+id/flashcard_question"
         android:gravity="center"

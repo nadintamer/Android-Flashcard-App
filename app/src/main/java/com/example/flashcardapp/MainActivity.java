@@ -215,8 +215,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(MainActivity.this, AddCardActivity.class);
                 startActivityForResult(i, ADD_CARD_REQUEST_CODE);
-                // overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                // overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
             }
         });
 
@@ -249,7 +248,7 @@ public class MainActivity extends AppCompatActivity {
                 final Animation leftOutAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.left_out);
                 final Animation rightInAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.right_in);
 
-                if (allFlashcards.size() == 0) {
+                if (allFlashcards.size() == 0 || allFlashcards.size() == 1) {
                     return;
                 }
 
@@ -299,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
                 final Animation leftInAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.left_in);
                 final Animation rightOutAnim = AnimationUtils.loadAnimation(v.getContext(), R.anim.right_out);
 
-                if (allFlashcards.size() == 0) {
+                if (allFlashcards.size() == 0 || allFlashcards.size() == 1) {
                     return;
                 }
 

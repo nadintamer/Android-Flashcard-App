@@ -43,6 +43,7 @@ public class AddCardActivity  extends AppCompatActivity {
             public void onClick(View v) {
                 setResult(Activity.RESULT_CANCELED);
                 finish();
+                overridePendingTransition(R.anim.left_in, R.anim.right_out);
             }
         });
 
@@ -70,6 +71,7 @@ public class AddCardActivity  extends AppCompatActivity {
                     data.putExtra("hint", enteredHint);
                     setResult(RESULT_OK, data);
                     finish();
+                    overridePendingTransition(R.anim.left_in, R.anim.right_out);
                 }
             }
         });
